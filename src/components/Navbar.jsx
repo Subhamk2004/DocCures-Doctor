@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/images/logo.png'
 import logoFull from '../assets/images/logofull.png'
 import create from '../assets/images/create.png'
@@ -16,16 +16,20 @@ import addBlack from '../assets/images/addBlack.png'
 import logoutIcon from '../assets/images/logout.png'
 import useAuth from '../hooks/useAuth'
 import Loading from './Loading.jsx'
-import user from '../assets/images/user.png'
-import userBlack from '../assets/images/userBlack.png'
-import { logoutDoctor } from '../redux/DoctorSlice.mjs'
+import emergency from '../assets/images/emergency.png'
+import emergencyBlack from '../assets/images/emergencyBlack.png'
+import { logoutDoctor, clearAppointments } from '../redux/DoctorSlice.mjs'
+import IncomponentLoading from './IncomponentLoading.jsx'
+import { useNavigate } from 'react-router-dom'
 
 
 function Navbar() {
   let { isAuthenticated } = useSelector(state => state.doctor);
   let { isLoading } = useAuth();
+  let [loading, setLoading] = useState(false);
   const server_url = import.meta.env.VITE_DOCCURES_SERVER_URL;
   let dispatch = useDispatch();
+  let navigate = useNavigate();
 
 
   let activeLink = 'text-primary font-bold w-full flex flex-row gap-3 items-center text-[19px] lg:text-[22px] cursor-pointer bg-white px-4 py-3 shadow-md shadow-darkGray rounded-2xl hover:text-primary  transition-all  hover:shadow-[#9f9fe9]'
@@ -33,13 +37,27 @@ function Navbar() {
   let inactiveLink = 'text-textp flex flex-row  items-center text-[19px] lg:text-[21px] gap-3 w-full px-4 py-3 rounded-2xl font-semibold cursor-pointer hover:text-black hover:bg-white hover:rounded-2xl hover:px-2 hover:text-[20px] transition-all  hover:shadow-[#9f9fe9] hover:shadow-md'
 
   const logout = async () => {
-    const response = await fetch(`${server_url}/admin/logout`, {
-      method: 'POST',
-      credentials: 'include'
-    });
-    dispatch(logoutDoctor());
+    try {
+      setLoading(true);
+      const response = await fetch(`${server_url}/logout/doctor`, {
+        method: 'POST',
+        credentials: 'include'
+      });
+      if (response.ok) {
+        dispatch(clearAppointments());
+        dispatch(logoutDoctor());
+        navigate('/')
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+    finally {
+      setLoading(false)
+    }
   }
-  
+
   if (isLoading) {
     return <Loading />
   }
@@ -55,7 +73,7 @@ function Navbar() {
             <h1 className='font-bold md:text-[24px] lg:text-[28px] text-white '>
               DocCures
             </h1>
-            <p className='-mt-1 text-xs text-white py-1 border border-darkGray rounded-3xl text-center'>Admin</p>
+            <p className='-mt-1 text-xs text-white py-1 border border-darkGray rounded-3xl text-center'>Doctor</p>
           </div>
         </NavLink>
         <ul className='flex flex-col items-start lg:gap-7 gap-4 px-4 font-semibold text-textp text-[18px] w-[93%] bg-softGray mx-4 p-4 rounded-2xl'>
@@ -71,14 +89,14 @@ function Navbar() {
             )}
           </NavLink>
           <NavLink
-            to="/allDoctors"
+            to="/profile"
             className={({ isActive }) =>
               isActive ? activeLink : inactiveLink
             }>
             {({ isActive }) => (
               <>
                 <img src={isActive ? group : groupBlack} className='w-[23px] lg:w-[25px]' alt="Home" />
-                All Doctors
+                Profile
               </>
             )}
           </NavLink>
@@ -94,28 +112,15 @@ function Navbar() {
               </>
             )}
           </NavLink>
-
           <NavLink
-            to="/addDoc"
+            to="/emergency"
             className={({ isActive }) =>
               isActive ? activeLink : inactiveLink
             }>
             {({ isActive }) => (
               <>
-                <img src={isActive ? add : addBlack} className='w-[23px] lg:w-[25px]' alt="Home" />
-                Add Doctor
-              </>
-            )}
-          </NavLink>
-          <NavLink
-            to="/allUsers"
-            className={({ isActive }) =>
-              isActive ? activeLink : inactiveLink
-            }>
-            {({ isActive }) => (
-              <>
-                <img src={isActive ? user : userBlack} className='w-[23px] lg:w-[25px]' alt="Home" />
-                All Users
+                <img src={isActive ? emergency : emergencyBlack} className='w-[23px] lg:w-[25px]' alt="Home" />
+                Emergency
               </>
             )}
           </NavLink>
@@ -135,13 +140,25 @@ function Navbar() {
             :
             <div className='h-full w-full flex justify-center items-end '>
               <button className="bg-white rounded-2xl text-black font-semibold w-full justify-center text-xl ml-3 overflow-hidden group hover:shadow-md hover:shadow-[#404b7c]" onClick={logout}>
-                <div className='bg-[#ffb0b02f] group-hover:bg-[#ffcacafd] px-5 lg:px-6 p-3 flex flex-row w-full h-full gap-2 justify-center items-center transition-all duration-300'>
-                  Logout
-                  <img
-                    src={logoutIcon}
-                    className='w-[22px] transition-transform duration-300 group-hover:translate-x-2'
-                    alt="Logout"
-                  />
+                <div
+                  className='p-3 w-full flex flex-row rounded-2xl text-2xl font-semibold text-textp bg-[#ffdcdc] hover:bg-[#ffd4d4] hover:shadow-md hover:shadow-[#5c6e9e]'
+                  type='submit'
+                  disabled={loading}
+                >
+
+                  {loading ?
+                    <div className='w-full h-full bg-primary flex flex-row items-center justify-center'>
+                      <IncomponentLoading isShort={true} />
+                    </div> :
+                    <div className='flex flex-row items-center justify-center w-full gap-2 h-full'>
+                      Logout
+                      <img
+                        src={logoutIcon}
+                        className='w-[22px] transition-transform duration-300 group-hover:translate-x-2'
+                        alt="Logout"
+                      />
+                    </div>
+                  }
                 </div>
               </button>
             </div>

@@ -9,12 +9,13 @@ let useAppointments = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     let dispatch = useDispatch();
+    let { email } = useSelector(state => state.doctor)
 
 
     let fetchAppointments = async () => {
         try {
             setIsLoading(true);
-            let response = await fetch(`${serverUrl}/user/getAppointments?email=AdminSKR`, {
+            let response = await fetch(`${serverUrl}/user/getAppointments?type=Doctor&email=${encodeURIComponent(email)}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

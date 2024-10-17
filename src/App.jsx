@@ -3,12 +3,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Router from "./Router"
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
-import AllDoctors from "./pages/AllDoctors"
+import AllDoctors from "./pages/Emergency"
 import AddDoctor from "./pages/AddDoctor"
 import Appointments from "./pages/Appointments"
-import AllUsers from "./pages/AllUsers"
+import Emergency from "./pages/Emergency"
 import LoadUser from "./pages/LoadUser"
 import Signup from "./pages/Signup"
+import Profile from "./pages/Profile"
+import EditProfile from "./pages/EditUser"
 
 function App() {
 
@@ -26,20 +28,20 @@ function App() {
           element: <Dashboard />
         },
         {
-          path: 'alldoctors',
-          element: <AllDoctors />
+          path: 'emergency',
+          element: <Emergency />
         },
         {
-          path: 'addDoc',
-          element: <AddDoctor />
+          path: 'editProfile',
+          element: <EditProfile />
         },
         {
           path: 'appointments',
           element: <Appointments />
         },
         {
-          path: 'allUsers',
-          element: <AllUsers />
+          path: 'profile',
+          element: <Profile />
         },
         {
           path: 'viewUser/:id',

@@ -6,6 +6,7 @@ import useAuth from '../hooks/useAuth';
 import Loading from '../components/Loading';
 import AlertDisplay from '../components/AlertDisplay';
 import logofull from '../assets/images/logofull.png'
+import IncomponentLoading from '../components/IncomponentLoading';
 
 function Login() {
     const { isAuthenticated } = useSelector(state => state.doctor);
@@ -14,6 +15,9 @@ function Login() {
     const [email, setEmail] = useState('');
     const [data, setData] = useState();
     const navigate = useNavigate();
+    let [error, setError] = useState('')
+    let [showSuccess, setShowSuccess] = useState(false)
+    let [showError, setShowError] = useState(false)
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const { isLoading } = useAuth();
@@ -72,7 +76,7 @@ function Login() {
                     setShowError(false)
                 }, 12000)
             }
-            
+
         } catch (error) {
             console.error('Login error:', error);
             setShowWarning(true);
@@ -87,7 +91,19 @@ function Login() {
 
     return (
         <div className='w-full h-full border bg-secondary flex flex-col items-center justify-center gap-8'>
-            {showWarning && <AlertDisplay alertMessage='Invalid Credentials' alertType='warning' />}
+            
+            {
+                showSuccess ?
+                    <AlertDisplay alertType='success' alertMessage='Login successful' />
+                    :
+                    null
+            }
+            {
+                showError ?
+                    <AlertDisplay alertType='error' alertMessage={error} />
+                    :
+                    null
+            }
             <h1 className='text-3xl font-bold text-primary'>Welcome Doctor</h1>
             <form className='shadow-lg shadow-darkGray rounded-3xl p-8 bg-white flex flex-col gap-7 items-center px-[40px]'
                 onSubmit={handleSubmit}

@@ -31,7 +31,9 @@ function useAuth() {
       console.log('Auth status response:', data);
       setAuthData(data);
 
-      if (data.isAuthenticated) {
+      if (data.auth) {
+        console.log(data.user);
+        
         dispatch(authenticate(data));
       }
     } catch (error) {

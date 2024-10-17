@@ -73,7 +73,7 @@ function AddDoctor() {
                 setShowSuccess(true)
                 setTimeout(() => {
                     setShowSuccess(false)
-                    // navigate('/');
+                    navigate('/');
                 }, 7000)
                 setDoctor(initialDoctorState);
                 setPreviewImage(null);
@@ -101,7 +101,7 @@ function AddDoctor() {
                     }
                     {
                         showSuccess ?
-                            <AlertDisplay alertType='success' alertMessage='Doctor added successfully, now please signup' />
+                            <AlertDisplay alertType='success' alertMessage='Doctor added successfully, now please login' />
                             :
                             null
                     }
