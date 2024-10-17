@@ -11,7 +11,7 @@ function AlertDisplay({
     alertMessage = 'Something went wrong, try refreshing the page', alertType = 'error' ,display
 }) {
     const { error } = useAuth();
-    let { displayAlert } = useSelector(state => state.admin);
+    let { displayAlert } = useSelector(state => state.doctor);
 
     let startStyle = 'transition-all h-full w-[5px]';
     let stopStyle = 'transition-all duration-[4500ms] ease-in w-[5px] h-[0px]'
@@ -24,7 +24,6 @@ function AlertDisplay({
 
     useEffect(() => {
         console.log(displayAlert);
-        
         setAlertStyle(alertBoxShowStyle)
         setStyle(startStyle);
         setAlertIndicator(alertType)

@@ -7,8 +7,8 @@ import AllDoctors from "./pages/AllDoctors"
 import AddDoctor from "./pages/AddDoctor"
 import Appointments from "./pages/Appointments"
 import AllUsers from "./pages/AllUsers"
-import EditProfile from "./pages/EditUser"
 import LoadUser from "./pages/LoadUser"
+import Signup from "./pages/Signup"
 
 function App() {
 
@@ -44,6 +44,10 @@ function App() {
         {
           path: 'viewUser/:id',
           element: <LoadUser />
+        },
+        {
+          path:'signup',
+          element: <Signup />
         }
       ]
     }

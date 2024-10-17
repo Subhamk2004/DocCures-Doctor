@@ -18,11 +18,11 @@ import useAuth from '../hooks/useAuth'
 import Loading from './Loading.jsx'
 import user from '../assets/images/user.png'
 import userBlack from '../assets/images/userBlack.png'
-import { logout as logoutUser } from '../redux/AdminSclice'
+import { logoutDoctor } from '../redux/DoctorSlice.mjs'
 
 
 function Navbar() {
-  let { isAuthenticated } = useSelector(state => state.admin);
+  let { isAuthenticated } = useSelector(state => state.doctor);
   let { isLoading } = useAuth();
   const server_url = import.meta.env.VITE_DOCCURES_SERVER_URL;
   let dispatch = useDispatch();
@@ -37,7 +37,7 @@ function Navbar() {
       method: 'POST',
       credentials: 'include'
     });
-    dispatch(logoutUser());
+    dispatch(logoutDoctor());
   }
   
   if (isLoading) {

@@ -9,7 +9,7 @@ import AlertDisplay from "./components/AlertDisplay";
 
 function Router() {
     const { isLoading, error } = useAuth();
-    let { isAuthenticated } = useSelector(state => state.admin);
+    let { isAuthenticated } = useSelector(state => state.doctor);
     let navigate = useNavigate();
 
     useEffect(() => {

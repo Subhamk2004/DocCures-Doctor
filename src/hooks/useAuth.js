@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
-import { authenticate } from "../redux/AdminSclice";
+import { authenticate } from "../redux/DoctorSlice.mjs";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const server_url = import.meta.env.VITE_DOCCURES_SERVER_URL;
 
@@ -9,11 +10,12 @@ function useAuth() {
   const [authData, setAuthData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  let navigate = useNavigate()
 
   const authStatus = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${server_url}/admin/login/status`, {
+      const response = await fetch(`${server_url}/doctor/auth/status`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

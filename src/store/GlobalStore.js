@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "../reduxSlices/UserSlice.mjs";
-import appointmentsReducer from "../reduxSlices/AppointmentSlice.mjs";
+import appointmentsReducer from "../redux/AppointmentSlice.mjs";
+import doctorReducer from "../redux/DoctorSlice.mjs";
 
 export const Store = configureStore({
   reducer: {
-    user: userReducer,
+    doctor: doctorReducer,
     appointments: appointmentsReducer
   }
 });

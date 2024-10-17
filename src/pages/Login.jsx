@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authenticate, setDisplayAlert } from '../redux/AdminSclice';
+import { authenticate, setDisplayAlert } from '../redux/DoctorSlice.mjs';
 import useAuth from '../hooks/useAuth';
 import Loading from '../components/Loading';
 import AlertDisplay from '../components/AlertDisplay';
 import logofull from '../assets/images/logofull.png'
 
 function Login() {
-    const { isAuthenticated } = useSelector(state => state.admin);
+    const { isAuthenticated } = useSelector(state => state.doctor);
     const [showWarning, setShowWarning] = useState(false);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [data, setData] = useState();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
     const { isLoading } = useAuth();
 
     const server_url = import.meta.env.VITE_DOCCURES_SERVER_URL;
@@ -43,7 +44,8 @@ function Login() {
         setShowWarning(false);
 
         try {
-            const response = await fetch(`${server_url}/admin/login`, {
+            setLoading(true);
+            const response = await fetch(`${server_url}/doctor/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -52,11 +54,30 @@ function Login() {
                 credentials: 'include'
             });
 
-            const responseData = await response.json();
-            setData(responseData);
+            let newData = await response.json();
+            setData(newData);
+            console.log(newData);
+
+            if (newData.auth) {
+                setShowSuccess(true)
+                setTimeout(() => {
+                    navigate('/dashboard')
+                    setShowSuccess(false)
+                }, 7000)
+            }
+            else {
+                setShowError(true)
+                setError(newData.message)
+                setTimeout(() => {
+                    setShowError(false)
+                }, 12000)
+            }
+            
         } catch (error) {
             console.error('Login error:', error);
             setShowWarning(true);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -67,7 +88,7 @@ function Login() {
     return (
         <div className='w-full h-full border bg-secondary flex flex-col items-center justify-center gap-8'>
             {showWarning && <AlertDisplay alertMessage='Invalid Credentials' alertType='warning' />}
-            <h1 className='text-3xl font-bold text-primary'>Welcome Admin</h1>
+            <h1 className='text-3xl font-bold text-primary'>Welcome Doctor</h1>
             <form className='shadow-lg shadow-darkGray rounded-3xl p-8 bg-white flex flex-col gap-7 items-center px-[40px]'
                 onSubmit={handleSubmit}
             >
@@ -90,11 +111,29 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         className='outline-none min-w-[300px] p-2 bg-secondary rounded-xl shadow-md shadow-darkGray' />
                 </div>
-                <button className='p-3 min-w-[300px] bg-primary rounded-xl text-2xl font-semibold text-white hover:bg-[#0000ffd3]'
-                    type='submit'
-                >
-                    Login
-                </button>
+                {
+                    loading ?
+                        <button className='p-3 w-full rounded-2xl text-2xl font-bold text-white bg-[#0000ffc0] hover:shadow-md hover:shadow-[#5c6e9e]'
+                            type='submit'
+                            disabled={loading}
+                        >
+                            <IncomponentLoading isShort={true} />
+                        </button>
+
+                        :
+                        <button className='p-3 bg-primary w-full rounded-2xl text-2xl font-bold text-white hover:bg-[#0000ffc0] hover:shadow-md hover:shadow-[#5c6e9e]'
+                            type='submit'
+                            disabled={loading}
+                        >
+                            Login
+                        </button>
+                }
+                <p className='flex flex-row gap-1 text-textp'>
+                    Not registered?
+                    <Link to='/signup' className='text-primary font-semibold text-lg hover:text-[#0000ffd3] underline'>
+                        Register
+                    </Link>
+                </p>
             </form>
         </div>
     )
