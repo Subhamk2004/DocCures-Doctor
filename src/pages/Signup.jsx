@@ -108,7 +108,7 @@ function AddDoctor() {
                     Register yourself as a
                     <span className='text-primary'> Doctor</span>
                 </h1>
-                <div className='w-[70%] max-w-[800px] h-auto mt-10 overflow-scroll no-scrollbar'>
+                <div className='w-[90%] md:w-[70%] max-w-[800px] h-auto mt-10 overflow-scroll no-scrollbar'>
                     <form className='w-full h-auto bg-white rounded-3xl flex flex-col items-start p-6 px-9 shadow-md shadow-darkGray gap-7 mb-4'
                         onSubmit={handleSubmit}
                     >

@@ -193,7 +193,7 @@ function Emergency() {
   };
 
   return (
-    <div className='w-[65%] lg:w-[80%] bg-primary p-4'>
+    <div className='w-full md:w-[65%] lg:w-[80%] md:bg-primary md:p-4'>
       <div className='w-full h-full bg-softGray rounded-3xl flex flex-col items-center overflow-scroll no-scrollbar'>
         {alertMessage && <AlertDisplay alertMessage={alertMessage} alertType={alertType} />}
 
@@ -208,8 +208,8 @@ function Emergency() {
               <img src={room} className='absolute w-full h-full object-cover rounded-3xl opacity-55' />
               <div className='z-10 w-full h-full bg-transparent p-4 rounded-3xl flex flex-col items-center overflow-scroll no-scrollbar'>
                 <h2 className="text-2xl font-bold mb-4 text-gray-800">Active Emergency</h2>
-                <div className="bg-white w-full p-4 h-[80%] rounded-2xl shadow-md overflow-scroll no-scrollbar max-w-[750px] ">
-                  <div className="mb-4 w-full h-[100%] overflow-y-auto no-scrollbar space-y-4">
+                <div className="bg-white w-full h-[60vh] p-4 md:h-[80%] rounded-2xl shadow-md overflow-scroll no-scrollbar max-w-[750px] ">
+                  <div className="mb-4 w-full h-[80%] md:h-[100%] overflow-y-auto no-scrollbar space-y-4">
                     {messages.map((msg, index) => (
                       <div
                         key={index}
@@ -225,17 +225,17 @@ function Emergency() {
                       </div>
                     ))}
                   </div>
-                  <form onSubmit={sendMessage} className="flex items-center">
+                  <form onSubmit={sendMessage} className=" md:h-auto flex items-center">
                     <input
                       type="text"
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      className="flex-grow p-2 border rounded-l-lg focus:outline-none hover:border-primary"
+                      className="flex-grow p-2 w-[20px] md:w-auto border rounded-l-lg focus:outline-none hover:border-primary"
                       placeholder="Type your message..."
                     />
                     <button
                       type="submit"
-                      className="bg-primary text-white px-4 py-2 rounded-r-lg hover:bg-primary/90 transition-colors duration-200 flex items-center"
+                      className="bg-primary w-[100px] text-white px-4 py-2 rounded-r-lg hover:bg-primary/90 transition-colors duration-200 flex items-center"
                     >
                       <Send size={18} className="mr-2" />
                       Send
@@ -315,7 +315,7 @@ function Emergency() {
 
         {notificationPermission !== 'granted' && (
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg mb-4 hover:bg-blue-600 transition-colors duration-200 mt-10"
+            className="bg-blue-500 z-10 text-white px-4 py-2 rounded-lg mb-4 hover:bg-blue-600 transition-colors duration-200 mt-10"
             onClick={requestNotificationPermission}
           >
             Enable Notifications

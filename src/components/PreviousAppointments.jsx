@@ -24,7 +24,7 @@ const PreviousAppointmentList = ({ page = 'bookings' }) => {
     }
 
     return (
-        <div className='w-[80%] lg:w-1/2 flex flex-row gap-6 mt-6 h-full'>
+        <div className= 'w-[95%] md:w-[80%] lg:w-1/2 flex flex-row gap-6 mt-6 h-full'>
             <div className='p-3 w-full h-full flex flex-col items-center bg-secondary py-6 rounded-xl shadow-md shadow-darkGray gap-3 '>
                 <h3 className='text-xl font-semibold text-textp flex flex-row items-center gap-2 mb-6'>
                     <Book className='w-[22px] h-[22px]' />
@@ -34,7 +34,7 @@ const PreviousAppointmentList = ({ page = 'bookings' }) => {
                     previousAppointments.map((booking, index) => {
                         return (
                             <div className='w-full p-3 bg-white rounded-xl shadow-lg shadow-darkGray'>
-                                <p className='text-lg font-semibold text-black flex flex-row items-center justify-between'>Dr. {booking.doctorName}
+                                <p className='text-lg font-semibold text-black flex flex-row items-center justify-between'>Patient: {booking.patientName}
                                     {
                                         booking.isPaid ?
                                             <img src={success} className='w-5' />
@@ -55,7 +55,7 @@ const PreviousAppointmentList = ({ page = 'bookings' }) => {
                                         :
                                         <div className='w-full flex flex-row justify-between items-center'>
                                             <p className='text-lg font-semibold text-[#c92626]'>₹{booking.fee}</p>
-                                            <span className='text-sm text-textp'>*Cancelled due to payment failure</span>
+                                            <span className='text-xs md:text-sm text-textp'>*Cancelled due to payment failure</span>
                                         </div>
                                 }
                             </div>

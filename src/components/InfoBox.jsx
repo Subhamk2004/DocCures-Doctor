@@ -12,7 +12,7 @@ function InfoBox({
     to
 }) {
     return (
-        <Link to={to} className={`px-4 py-4 bg-white flex flex-row  justify-between rounded-2xl shadow-md shadow-darkGray w-[400px] h-[95px] cursor-pointer overflow-hidden ${className}`}>
+        <Link to={to} className={`px-4 py-4 bg-white flex flex-row  justify-between rounded-2xl shadow-md shadow-darkGray w-[400px] md:h-[95px] cursor-pointer overflow-hidden ${className}`}>
             <div>
                 <p className='font-semibold'>
                     {title}
@@ -26,7 +26,7 @@ function InfoBox({
                         </span>
                 }
             </div>
-            <img src={image} alt='doc' className={`${ImgclassName}`} />
+            <img src={image} alt='doc' className={`${ImgclassName} `} />
         </Link>
     )
 }

@@ -90,7 +90,7 @@ function Login() {
     }
 
     return (
-        <div className='w-full h-full border bg-secondary flex flex-col items-center justify-center gap-8'>
+        <div className='w-full h-full mt-10 md:mt-0 md:bg-secondary flex flex-col items-center justify-center gap-8'>
             
             {
                 showSuccess ?
@@ -105,7 +105,7 @@ function Login() {
                     null
             }
             <h1 className='text-3xl font-bold text-primary'>Welcome Doctor</h1>
-            <form className='shadow-lg shadow-darkGray rounded-3xl p-8 bg-white flex flex-col gap-7 items-center px-[40px]'
+            <form className='w-[90%] md:w-auto shadow-lg shadow-darkGray rounded-3xl p-8 bg-white flex flex-col gap-7 items-center px-[40px]'
                 onSubmit={handleSubmit}
             >
                 <img src={logofull} alt="Logo" className='w-[100px]' />

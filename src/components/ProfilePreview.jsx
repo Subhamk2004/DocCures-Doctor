@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mail, Phone, MapPinCheck, Edit, LogOut, Trash, IndentIcon, TicketMinus, Book, Star, CaseLower, Box, User2Icon, UserCircleIcon, UserCheck } from 'lucide-react';
+import { Mail, Phone, MapPinCheck, Edit, LogOut, Trash, IndentIcon, TicketMinus, Book, Star, CaseLower, Box, User2Icon, UserCircleIcon, UserCheck, IndianRupee } from 'lucide-react';
 import Verified from '../assets/images/verified.png';
 
 function ProfilePreview({
@@ -14,7 +14,8 @@ function ProfilePreview({
     degree,
     speciality,
     experience,
-    available
+    available,
+    fees
 }) {
     let imageUrl = previewImage;
     if (isLocalImage && typeof previewImage !== 'string') {
@@ -23,8 +24,8 @@ function ProfilePreview({
 
     return (
         <div className='flex flex-col gap-7 items-center mt-10 px-6 justify-center'>
-            <div className='p-1 border-4 border-primary rounded-full relative'>
-                <div className='w-[150px] h-[150px] flex flex-col rounded-full overflow-hidden items-center justify-center'>
+            <div className='p-1 border-[3px] md:border-4 border-primary rounded-full relative'>
+                <div className='w-[110px] h-[110px] md:w-[150px] md:h-[150px] flex flex-col rounded-full overflow-hidden items-center justify-center'>
                     {
                         isLocalImage ?
                             <img
@@ -67,12 +68,12 @@ function ProfilePreview({
                             </>
                     }
                 </div>
-                <img src={Verified} className='bg-white p-1 rounded-full w-[45px] absolute bottom-0 right-0' alt="Verified" />
+                <img src={Verified} className='bg-white p-1 rounded-full w-[39px] md:w-[45px] absolute bottom-0 right-0' alt="Verified" />
             </div>
             <div className='flex flex-col items-start gap-3 w-full '>
-                <div className='w-full flex flex-row items-center justify-center'>
-                    <span className='text-[33px] text-center flex justify-center font-bold text-textp flex-row gap-2 relative items-center'>
-                        {name}
+                <div className='w-full flex flex-row items-center md:justify-center'>
+                    <span className='text-[22px] md:text-[33px]  md:w-auto md:text-center flex md:justify-center font-bold text-textp flex-row gap-2 relative items-center'>
+                        Dr. {name}
 
                         {
                             degree &&
@@ -100,33 +101,37 @@ function ProfilePreview({
                 </div>
 
                 <div className='flex flex-row items-start gap-2'>
-                    <Phone className='w-[22px] h-[22px] mt-1' />
-                    <p className='text-xl font-semibold text-primary'>{phone}</p>
+                    <Phone className='w-[18px] h-[18px] md:w-[22px] md:h-[22px] mt-1' />
+                    <p className='md:text-xl font-semibold text-primary'>{phone}</p>
                 </div>
                 <div className='flex flex-row items-start gap-2'>
-                    <Mail className='w-[22px] h-[22px] mt-1' />
-                    <p className='text-xl font-semibold text-primary'>{email}</p>
+                    <Mail className='w-[18px] h-[18px] md:w-[22px] md:h-[22px] mt-1' />
+                    <p className='md:text-xl font-semibold text-primary'>{email}</p>
                 </div>
                 <div className='flex flex-row items-start gap-2'>
                     <MapPinCheck className='w-[22px] h-[22px] mt-1' />
-                    <p className='text-xl font-semibold text-primary'>{address}</p>
+                    <p className='md:text-xl font-semibold text-primary'>{address}</p>
                 </div>
                 {
                     degree &&
-                    <>
+                    <div className='flex flex-col gap-3'>
                         <div className='flex flex-row items-start gap-2'>
                             <UserCheck className='w-[22px] h-[22px] mt-1' />
-                            <p className='text-xl font-semibold text-primary'>{speciality}</p>
+                            <p className='tmd:text-xl font-semibold text-primary'>{speciality}</p>
                         </div>
                         <div className='flex flex-row items-start gap-2'>
-                            <Star className='w-[22px] h-[22px] mt-1' />
-                            <p className='text-xl font-semibold text-primary'>{experience} years of experience</p>
+                            <Star className='w-[18px] h-[18px] md:w-[22px] md:h-[22px] mt-1' />
+                            <p className='md:text-xl font-semibold text-primary'>{experience} years of experience</p>
                         </div>
                         <div className='flex flex-row items-start gap-2'>
-                            <Book className='w-[22px] h-[22px] mt-1' />
-                            <p className='text-xl font-semibold text-primary'>Highest degree in {degree}</p>
+                            <Book className='w-[18px] h-[18px] md:w-[22px] md:h-[22px] mt-1' />
+                            <p className='md:text-xl font-semibold text-primary'>Highest degree in {degree}</p>
                         </div>
-                    </>
+                        <div className='flex flex-row items-start gap-2'>
+                            <IndianRupee className='w-[18px] h-[18px] md:w-[22px] md:h-[22px] mt-1' />
+                            <p className='md:text-xl font-semibold text-[#17a317]'>Appointment fee ₹{fees}</p>
+                        </div>
+                    </div>
                 }
             </div>
         </div>

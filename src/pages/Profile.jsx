@@ -16,7 +16,7 @@ import { clearAppointments } from '../redux/AppointmentSlice.mjs';
 
 
 function Profile() {
-    const { name, email, phone, address, image } = useSelector(state => state.doctor);
+    const { name, email, phone, address, image, degree, speciality, xp, available, fees } = useSelector(state => state.doctor);
     const serverUrl = import.meta.env.VITE_DOCCURES_SERVER_URL;
     let { appointments, isLoading: loadingBookings, error: bookingError } = useAppointments();
     const dispatch = useDispatch();
@@ -74,8 +74,8 @@ function Profile() {
     }
 
     return (
-        <div className='w-[65%] lg:w-[80%] bg-primary p-4'>
-            <div className='w-full h-full bg-softGray rounded-3xl flex flex-col items-center overflow-scroll no-scrollbar'>
+        <div className='md:w-[65%] lg:w-[80%] md:bg-primary p-4'>
+            <div className='w-full h-full bg-white shadow-xl md:shadow-none md:bg-softGray rounded-3xl flex flex-col items-center overflow-scroll no-scrollbar'>
                 {showLogoutConfirm && (
                     <ConfirmAlert
                         confirmMessage='Are you sure you want to logout?'
@@ -104,12 +104,18 @@ function Profile() {
                     email={email}
                     phone={phone}
                     address={address}
+                    isLocalImage={false}
                     image={image}
                     color={color}
+                    degree={degree}
+                    speciality={speciality}
+                    experience={xp}
+                    available={available}
+                    fees={fees}
                 />
 
                 <hr className='w-[95%] border-none h-[2px] bg-darkGray mt-5' />
-                <h2 className='text-2xl font-semibold mt-5'>Your Appointments with patients</h2>
+                <h2 className='text-xl md:text-2xl font-semibold mt-5'>Your Appointments with patients</h2>
 
                 <div className='mt-6 w-[95%] flex flex-col lg:flex-row gap-8 items-center'>
                     {
@@ -124,15 +130,15 @@ function Profile() {
                 <Link to='/appointments' className='mt-10 px-5 p-3 flex flex-row items-center gap-2 bg-primary rounded-xl w-[250px] justify-center text-white text-lg font-semibold hover:bg-[#2929ff]'>
                     All Appointments
                 </Link>
-                <hr className='w-[95%] border-none h-[2px] bg-darkGray mt-5' />
-                <div className='w-[95%] py-6 px-3 bg-secondary rounded-2xl shadow-md shadow-darkGray flex flex-row justify-around gap-3'>
-                    <Link to="/editProfile" className='px-5 p-3 flex flex-row items-center gap-2 bg-primary rounded-xl w-[200px] justify-center text-white text-lg font-semibold hover:bg-[#2929ff]'>
+                <hr className='w-[95%] border-none h-[2px] bg-darkGray mt-5 md:mb-0 mb-5' />
+                <div className='w-[95%] py-6 px-3 bg-secondary rounded-2xl shadow-md shadow-darkGray flex flex-col md:flex-row justify-around gap-3 mb-5 md:mb-0' >
+                    <Link to="/editProfile" className='px-5 p-3 flex flex-row items-center gap-2 bg-primary rounded-xl md:w-[200px] justify-center text-white text-lg font-semibold hover:bg-[#2929ff] '>
                         Edit Profile
                         <Edit className='w-6' />
                     </Link>
-                   
+
                     <button
-                        className='px-5 p-3 flex flex-row items-center gap-2 bg-[#ec3333] rounded-xl w-[200px] justify-center text-white text-lg font-semibold hover:bg-[red]'
+                        className='px-5 p-3 flex flex-row items-center gap-2 bg-[#ec3333] rounded-xl md:w-[200px] justify-center text-white text-lg font-semibold hover:bg-[red]'
                         onClick={() => setShowDeleteConfirm(true)}
                     >
                         Delete Account
