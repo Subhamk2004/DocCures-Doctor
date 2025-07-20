@@ -23,12 +23,7 @@ function Footer() {
             <Link>Contact us</Link>
           </ul>
         </div>
-        <div className='flex flex-col md:w-[30%] md:items-center  text-sm md:text-base '>
-          <h2 className='text-2xl font-semibold'>
-            Support
-          </h2>
-         
-        </div>
+        
 
       </div>
       <div className='mb-4 mt-10 w-full'>
