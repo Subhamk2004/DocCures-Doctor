@@ -27,11 +27,7 @@ function Footer() {
           <h2 className='text-2xl font-semibold'>
             Support
           </h2>
-          <ul className='flex flex-col text-textp md:mt-20'>
-            <Link>+0 1234567890</Link>
-            <Link>subhamrahar22@gmail.com</Link>
-            <Link>@Subhamk2004 -Github</Link>
-          </ul>
+         
         </div>
 
       </div>
